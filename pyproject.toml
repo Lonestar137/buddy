@@ -1,0 +1,21 @@
+[project]
+name = "buddy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Garrett Jones", email = "garretcj2010@hotmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "click>=8.1.8",
+    "numpy>=2.2.4",
+    "sounddevice>=0.5.1",
+]
+
+[project.scripts]
+buddy = "buddy:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
