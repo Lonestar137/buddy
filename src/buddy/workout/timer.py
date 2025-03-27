@@ -23,7 +23,6 @@ def workout():
 @click.option('-i', '--interval', type=int, default=30)
 def timer(sample_rate: int, duration: float, volume: float, runtime: int, interval: int) -> None:
 
-    pretty_runtime = runtime / 60
     # Melody: Frequencies for "Twinkle, Twinkle, Little Star" (C, C, G, G, A, A, G)
     melody_frequencies = [
         261.63,  # C4 (Middle C)
@@ -39,24 +38,25 @@ def timer(sample_rate: int, duration: float, volume: float, runtime: int, interv
     tones = [generate_tone(freq, duration, sample_rate, volume) for freq in melody_frequencies]
     melody_length = len(melody_frequencies)
 
-    print(f"Starting {pretty_runtime}-minute melodic piano tone sequence...")
+    print(f"Starting {runtime}-minute melodic piano tone sequence...")
     start_time = time.time()
     elapsed = 0
     note_index = 0
+    pretty_elapsed = elapsed
     try:
         while elapsed < runtime:
-            pretty_runtime = round(elapsed / 60, 2)
+            pretty_elapsed = round(elapsed / 60, 2)
             current_freq = melody_frequencies[note_index]
-            print(f"Playing note {note_index + 1}/{melody_length} (Freq: {current_freq:.2f} Hz) at {pretty_runtime} minutes")
+            print(f"Playing note {note_index + 1}/{melody_length} (Freq: {current_freq:.2f} Hz) at {pretty_elapsed} minutes")
             sd.play(tones[note_index], sample_rate)
             sd.wait()  # Wait for the tone to finish playing
             time.sleep(interval - duration)  # Adjust sleep to maintain 30s interval
             elapsed = time.time() - start_time
             note_index = (note_index + 1) % melody_length  # Cycle through melody
 
-        print(f"Finished {pretty_runtime}-minute sequence.")
+        print(f"Finished {pretty_elapsed}-minute sequence.")
     except KeyboardInterrupt:
         print("Keyboard interrupt caught.")
-        print("Elapsed: ", elapsed)
+        print("Elapsed: ", pretty_elapsed)
 
 
