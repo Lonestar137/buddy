@@ -38,7 +38,7 @@ def timer(sample_rate: int, duration: float, volume: float, runtime: int, interv
     tones = [generate_tone(freq, duration, sample_rate, volume) for freq in melody_frequencies]
     melody_length = len(melody_frequencies)
 
-    print(f"Starting {runtime}-minute melodic piano tone sequence...")
+    print(f"Starting {round(runtime / 60, 2)}-minute melodic piano tone sequence...")
     start_time = time.time()
     elapsed = 0
     note_index = 0
